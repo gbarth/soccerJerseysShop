@@ -93,7 +93,15 @@ flutter:
   fonts:
     - family: Anton
       fonts:
-        - asset: fonts/Anton-Regular.ttf
+        - asset: assets/fonts/Anton-Regular.ttf
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Regular.ttf
+        - asset: assets/fonts/Lato-Bold.ttf
+          weight: 700
+    - family: Lateef
+      fonts:
+        - asset: assets/fonts/Lateef-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

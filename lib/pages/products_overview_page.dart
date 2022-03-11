@@ -13,9 +13,10 @@ class ProductsOverviewPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'FutShop',
+          'JerseysBr',
           style: TextStyle(
-            fontFamily: 'Anton',
+            fontFamily: 'Lateef',
+            fontSize: 32,
           ),
         ),
         centerTitle: true,
@@ -31,6 +32,7 @@ class ProductsOverviewPage extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
       ),
+      drawer: Drawer(),
     );
   }
 }
