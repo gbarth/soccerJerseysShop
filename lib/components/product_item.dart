@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:shop/pages/product_detail_page.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/utils/app_routes.dart';
 
 import '../models/product.dart';
 
 class ProductItem extends StatelessWidget {
-  final Product product;
-
-  const ProductItem({
-    Key? key,
-    required this.product,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context);
+
     return ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Stack(
@@ -34,40 +29,43 @@ class ProductItem extends StatelessWidget {
                 },
               ),
             ),
-            Positioned(
-              left: 3,
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.title,
-                      style: const TextStyle(
-                        fontFamily: 'Lateef',
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 9,
+                  ),
+                  child: Text(
+                    product.title,
+                    style: const TextStyle(
+                      fontFamily: 'Lateef',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.favorite_border_outlined,
-                        color: Theme.of(context).colorScheme.background,
-                      ),
-                      alignment: Alignment.centerLeft,
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.shopping_cart_outlined,
-                        color: Theme.of(context).colorScheme.background,
-                      ),
-                      alignment: Alignment.centerLeft,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                IconButton(
+                  onPressed: () {
+                    product.toogleFavorite();
+                  },
+                  icon: Icon(
+                    product.isFavorite
+                        ? Icons.favorite
+                        : Icons.favorite_border_outlined,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  alignment: Alignment.centerLeft,
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.shopping_cart_outlined,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  alignment: Alignment.centerLeft,
+                ),
+              ],
             ),
           ],
         ));
