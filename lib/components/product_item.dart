@@ -40,7 +40,7 @@ class ProductItem extends StatelessWidget {
                     left: 9,
                   ),
                   child: Text(
-                    product.title,
+                    product.name,
                     style: const TextStyle(
                       fontFamily: 'Lateef',
                       fontSize: 16,
