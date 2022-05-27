@@ -21,6 +21,7 @@ class Cart with ChangeNotifier {
           name: existingItem.name,
           quantity: existingItem.quantity + 1,
           price: existingItem.price,
+          imageP: existingItem.imageP
         ),
       );
     } else {
@@ -32,6 +33,7 @@ class Cart with ChangeNotifier {
           name: product.name,
           quantity: 1,
           price: product.price,
+          imageP: product.imagePath,
         ),
       );
     }
