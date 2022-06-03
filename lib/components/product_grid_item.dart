@@ -12,81 +12,82 @@ class ProductGridItem extends StatelessWidget {
     final cart = Provider.of<Cart>(context, listen: false);
 
     return ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            GridTile(
-              child: GestureDetector(
-                child: Image.asset(
-                  product.imagePath,
-                  fit: BoxFit.cover,
-                  alignment: Alignment.topCenter,
-                ),
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    AppRoutes.PRODUCT_DETAIL,
-                    arguments: product,
-                  );
-                },
+      borderRadius: BorderRadius.circular(10),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          GridTile(
+            child: GestureDetector(
+              child: Image.asset(
+                product.imagePath,
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
               ),
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  AppRoutes.PRODUCT_DETAIL,
+                  arguments: product,
+                );
+              },
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 9,
-                  ),
-                  child: Text(
-                    product.name,
-                    style: const TextStyle(
-                      fontFamily: 'Lateef',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 9,
+                ),
+                child: Text(
+                  product.name,
+                  style: const TextStyle(
+                    fontFamily: 'Lateef',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Consumer<Product>(
-                  builder: (ctx, product, _) => IconButton(
-                    onPressed: () {
-                      product.toogleFavorite();
-                    },
-                    icon: Icon(
-                      product.isFavorite
-                          ? Icons.favorite
-                          : Icons.favorite_border_outlined,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    alignment: Alignment.centerLeft,
-                  ),
-                ),
-                IconButton(
+              ),
+              Consumer<Product>(
+                builder: (ctx, product, _) => IconButton(
+                  onPressed: () {
+                    product.toogleFavorite();
+                  },
                   icon: Icon(
-                    Icons.shopping_cart,
+                    product.isFavorite
+                        ? Icons.favorite
+                        : Icons.favorite_border_outlined,
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   alignment: Alignment.centerLeft,
-                  onPressed: () {
-                    cart.addItem(product);
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: const Text('Product added!'),
-                        duration: const Duration(seconds: 2),
-                        action: SnackBarAction(
-                          label: 'DISMISS',
-                          onPressed: () {
-                            cart.removeSIngleItem(product.id);
-                          },
-                        ),
-                      ),
-                    );
-                  },
                 ),
-              ],
-            ),
-          ],
-        ));
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                alignment: Alignment.centerLeft,
+                onPressed: () {
+                  cart.addItem(product);
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text('Product added!'),
+                      duration: const Duration(seconds: 2),
+                      action: SnackBarAction(
+                        label: 'DISMISS',
+                        onPressed: () {
+                          cart.removeSIngleItem(product.id);
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
