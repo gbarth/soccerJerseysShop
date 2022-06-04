@@ -11,7 +11,13 @@ class ProductDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(product.name),
+        title: Text(
+          product.name,
+          style: const TextStyle(
+            fontFamily: 'Lateef',
+            fontSize: 28,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -19,7 +25,7 @@ class ProductDetailPage extends StatelessWidget {
             Container(
               child: Image.asset(product.imagePath),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'R\$ ${product.price}',
               style: const TextStyle(
@@ -27,7 +33,7 @@ class ProductDetailPage extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: 10,

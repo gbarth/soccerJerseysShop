@@ -17,7 +17,7 @@ class CartItemWidget extends StatelessWidget {
       key: ValueKey(cartItem.id),
       direction: DismissDirection.startToEnd,
       background: Container(
-        color: Theme.of(context).colorScheme.onSurface,
+        color: Color.fromARGB(143, 65, 65, 65),
         child: const Icon(
           Icons.delete_outline,
           color: Colors.white,
@@ -66,26 +66,21 @@ class CartItemWidget extends StatelessWidget {
         ),
         child: ListTile(
           leading: CircleAvatar(
+            backgroundColor: Colors.white,
             child: FittedBox(
               child: Image.asset(cartItem.imageP),
             ),
           ),
           title: Text(
             cartItem.name,
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Text(
             'Total: R\$ ${cartItem.price * cartItem.quantity}',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-            ),
           ),
           trailing: Text(
             '${cartItem.quantity}x',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),

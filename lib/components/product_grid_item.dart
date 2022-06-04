@@ -56,15 +56,13 @@ class ProductGridItem extends StatelessWidget {
                     product.isFavorite
                         ? Icons.favorite
                         : Icons.favorite_border_outlined,
-                    color: Theme.of(context).colorScheme.primary,
                   ),
                   alignment: Alignment.centerLeft,
                 ),
               ),
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.shopping_cart,
-                  color: Theme.of(context).colorScheme.primary,
                 ),
                 alignment: Alignment.centerLeft,
                 onPressed: () {
@@ -76,6 +74,7 @@ class ProductGridItem extends StatelessWidget {
                       duration: const Duration(seconds: 2),
                       action: SnackBarAction(
                         label: 'DISMISS',
+                        textColor: Colors.redAccent,
                         onPressed: () {
                           cart.removeSIngleItem(product.id);
                         },

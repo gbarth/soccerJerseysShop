@@ -15,7 +15,13 @@ class CartPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Cart"),
+        title: const Text(
+          "Cart",
+          style: TextStyle(
+            fontFamily: 'Lateef',
+            fontSize: 28,
+          ),
+        ),
         centerTitle: true,
       ),
       body: Column(
@@ -35,7 +41,7 @@ class CartPage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.onPrimary,
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Chip(
                     backgroundColor: Theme.of(context).colorScheme.background,
                     label: Text(
@@ -45,7 +51,7 @@ class CartPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   TextButton(
                     onPressed: () {
                       Provider.of<OrderList>(
@@ -58,7 +64,7 @@ class CartPage extends StatelessWidget {
                     child: Text(
                       'FINISH',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                     style: TextButton.styleFrom(

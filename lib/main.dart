@@ -6,6 +6,7 @@ import 'package:shop/models/product_list.dart';
 import 'package:shop/pages/cart_page.dart';
 import 'package:shop/pages/orders_page.dart';
 import 'package:shop/pages/product_detail_page.dart';
+import 'package:shop/pages/product_form_page.dart';
 import 'package:shop/pages/product_page.dart';
 import 'package:shop/pages/products_overview_page.dart';
 import 'package:shop/utils/app_routes.dart';
@@ -37,18 +38,18 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme(
             brightness: Brightness.light,
-            primary: const Color.fromARGB(255, 8, 6, 7),
+            primary: const Color.fromARGB(255, 0, 32, 102),
             onPrimary: const Color.fromARGB(255, 217, 222, 225),
-            secondary: const Color.fromARGB(255, 0, 32, 102),
+            secondary: const Color.fromARGB(255, 8, 6, 7),
             onSecondary: const Color.fromARGB(255, 217, 222, 225),
-            error: const Color.fromARGB(255, 217, 222, 225),
+            error: Colors.redAccent,
             onError: const Color.fromARGB(255, 8, 6, 7),
             background: const Color.fromARGB(255, 144, 110, 65),
             onBackground: const Color.fromARGB(255, 8, 6, 7),
             surface: const Color.fromARGB(255, 8, 6, 7),
             onSurface: const Color.fromARGB(255, 1, 24, 73).withOpacity(0.80),
           ),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 0, 32, 102),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 8, 6, 7),
         ),
         //home: ProductsOverviewPage(),
         routes: {
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.PRODUCT_DETAIL: (context) => const ProductDetailPage(),
           AppRoutes.CART: (context) => const CartPage(),
           AppRoutes.PRODUCTS: (context) => const ProductPage(),
+          AppRoutes.PRODUCT_FORM: (context) => const ProductFormPage(),
         },
       ),
     );

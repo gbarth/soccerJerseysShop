@@ -66,8 +66,8 @@ class ProductsOverviewPage extends StatelessWidget {
           )
         ],
       ),
-      body: ProductGrid(),
-      drawer: AppDrawer(),
+      body: const ProductGrid(),
+      drawer: const AppDrawer(),
     );
   }
 }

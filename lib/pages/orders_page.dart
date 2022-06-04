@@ -13,10 +13,13 @@ class OrdersPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Orders'),
+        title: const Text('My Orders', style: TextStyle(
+            fontFamily: 'Lateef',
+            fontSize: 28,
+          ),),
         centerTitle: true,
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.only(top: 10),
         child: ListView.builder(
