@@ -30,23 +30,16 @@ class ProductGridItem extends StatelessWidget {
                 );
               },
             ),
+            footer: Container(
+              height: 25,
+              child: const GridTileBar(
+                backgroundColor: Colors.black87,
+              ),
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 9,
-                ),
-                child: Text(
-                  product.name,
-                  style: const TextStyle(
-                    fontFamily: 'Lateef',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
               Consumer<Product>(
                 builder: (ctx, product, _) => IconButton(
                   onPressed: () {
@@ -82,6 +75,19 @@ class ProductGridItem extends StatelessWidget {
                     ),
                   );
                 },
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 9,
+                  top: 5,
+                ),
+                child: Text(
+                  product.name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
               ),
             ],
           ),
