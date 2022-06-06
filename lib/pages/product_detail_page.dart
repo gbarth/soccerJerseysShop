@@ -42,6 +42,9 @@ class ProductDetailPage extends StatelessWidget {
               child: Text(
                 product.description,
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
               ),
             )
           ],

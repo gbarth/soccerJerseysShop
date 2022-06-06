@@ -45,7 +45,7 @@ class ProductItem extends StatelessWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: const Text('Are you sure?'),
-                  content: const Text('Do you want to remove this item?'),
+                  content: const Text('Do you want to remove this product?'),
                   actions: [
                     TextButton(
                       onPressed: () {
