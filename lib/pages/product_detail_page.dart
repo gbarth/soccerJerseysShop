@@ -23,7 +23,7 @@ class ProductDetailPage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              child: Image.asset(product.imagePath),
+              child: Image.network(product.imageUrl),
             ),
             const SizedBox(height: 10),
             Text(

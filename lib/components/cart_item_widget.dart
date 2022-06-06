@@ -68,7 +68,7 @@ class CartItemWidget extends StatelessWidget {
           leading: CircleAvatar(
             backgroundColor: Colors.white,
             child: FittedBox(
-              child: Image.asset(cartItem.imageP),
+              child: Image.network(cartItem.imageP),
             ),
           ),
           title: Text(

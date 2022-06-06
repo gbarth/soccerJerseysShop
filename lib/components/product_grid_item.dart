@@ -18,8 +18,8 @@ class ProductGridItem extends StatelessWidget {
         children: [
           GridTile(
             child: GestureDetector(
-              child: Image.asset(
-                product.imagePath,
+              child: Image.network(
+                product.imageUrl,
                 fit: BoxFit.cover,
                 alignment: Alignment.topCenter,
               ),

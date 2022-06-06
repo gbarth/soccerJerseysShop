@@ -32,7 +32,7 @@ class Cart with ChangeNotifier {
           name: product.name,
           quantity: 1,
           price: product.price,
-          imageP: product.imagePath,
+          imageP: product.imageUrl,
         ),
       );
     }
