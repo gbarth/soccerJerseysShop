@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/exceptions/http_exception.dart';
 import 'package:shop/models/product.dart';
 import 'package:shop/models/product_list.dart';
 import 'package:shop/utils/app_routes.dart';
@@ -10,6 +11,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final msg = ScaffoldMessenger.of(context);
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.white,
@@ -41,6 +43,10 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             IconButton(
+              icon: Icon(
+                Icons.delete,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
               onPressed: () => showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
@@ -48,27 +54,32 @@ class ProductItem extends StatelessWidget {
                   content: const Text('Do you want to remove this product?'),
                   actions: [
                     TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(false);
-                      },
+                      onPressed: () => Navigator.of(context).pop(false),
                       child: const Text('No'),
                     ),
                     TextButton(
-                      onPressed: () {
-                        Provider.of<ProductList>(
-                          context,
-                          listen: false,
-                        ).removeProduct(product);
-                        Navigator.of(context).pop(true);
-                      },
+                      onPressed: () => Navigator.of(context).pop(true),
                       child: const Text('Yes'),
                     ),
                   ],
                 ),
-              ),
-              icon: Icon(
-                Icons.delete,
-                color: Theme.of(context).colorScheme.onPrimary,
+              ).then(
+                (value) async {
+                  if (value ?? false) {
+                    try {
+                      await Provider.of<ProductList>(
+                        context,
+                        listen: false,
+                      ).removeProduct(product);
+                    } on HttpException catch (e) {
+                      msg.showSnackBar(
+                        SnackBar(
+                          content: Text(e.toString()),
+                        ),
+                      );
+                    }
+                  }
+                },
               ),
             ),
           ],
