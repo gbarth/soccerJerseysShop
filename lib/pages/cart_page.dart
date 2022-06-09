@@ -52,27 +52,7 @@ class CartPage extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      Provider.of<OrderList>(
-                        context,
-                        listen: false,
-                      ).addOrder(cart);
-
-                      cart.clear();
-                    },
-                    child: Text(
-                      'FINISH',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                    style: TextButton.styleFrom(
-                      textStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.background,
-                      ),
-                    ),
-                  )
+                  FinishButton(cart: cart)
                 ],
               ),
             ),
@@ -86,5 +66,57 @@ class CartPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class FinishButton extends StatefulWidget {
+  const FinishButton({
+    Key? key,
+    required this.cart,
+  }) : super(key: key);
+
+  final Cart cart;
+
+  @override
+  State<FinishButton> createState() => _FinishButtonState();
+}
+
+class _FinishButtonState extends State<FinishButton> {
+  bool _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return _isLoading
+        ? CircularProgressIndicator(
+            color: Theme.of(context).colorScheme.background,
+            strokeWidth: 2,
+          )
+        : TextButton(
+            child: Text(
+              'FINISH',
+              style: TextStyle(
+                color: widget.cart.itemsCount == 0
+                    ? const Color.fromARGB(171, 139, 139, 139)
+                    : Theme.of(context).colorScheme.onPrimary,
+              ),
+            ),
+            style: TextButton.styleFrom(
+              textStyle: TextStyle(
+                color: Theme.of(context).colorScheme.background,
+              ),
+            ),
+            onPressed: widget.cart.itemsCount == 0
+                ? null
+                : () async {
+                    setState(() => _isLoading = true);
+                    await Provider.of<OrderList>(
+                      context,
+                      listen: false,
+                    ).addOrder(widget.cart);
+
+                    widget.cart.clear();
+                    setState(() => _isLoading = false);
+                  },
+          );
   }
 }
