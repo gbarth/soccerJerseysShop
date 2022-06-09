@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shop/models/order.dart';
-import 'package:shop/models/product.dart';
 
 class OrderWidget extends StatefulWidget {
   final Order order;
@@ -28,7 +27,7 @@ class _OrderWidgetState extends State<OrderWidget> {
             ListTile(
               title: Text(
                 'R\$ ${widget.order.total.toStringAsFixed(2)}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),

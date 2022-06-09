@@ -17,7 +17,7 @@ class CartItemWidget extends StatelessWidget {
       key: ValueKey(cartItem.id),
       direction: DismissDirection.startToEnd,
       background: Container(
-        color: Color.fromARGB(143, 65, 65, 65),
+        color: const Color.fromARGB(143, 65, 65, 65),
         child: const Icon(
           Icons.delete_outline,
           color: Colors.white,
