@@ -20,7 +20,7 @@ class AuthPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
-                      top: size.height * 0.08,
+                      top: size.height * 0.1,
                     ),
                     child: const Text(
                       'SJ Store',
@@ -28,7 +28,7 @@ class AuthPage extends StatelessWidget {
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 23,
-                        fontFamily: 'Goldman',
+                        fontFamily: 'Azonix',
                       ),
                     ),
                   ),
