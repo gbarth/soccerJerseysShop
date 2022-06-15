@@ -35,11 +35,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'FutStore',
+        title: 'SJ Store',
         theme: ThemeData(
           colorScheme: ColorScheme(
             brightness: Brightness.light,
-            primary: const Color.fromARGB(255, 0, 32, 102),
+            primary: const Color.fromARGB(255, 0, 113, 242),
             onPrimary: const Color.fromARGB(255, 217, 222, 225),
             secondary: const Color.fromARGB(255, 8, 6, 7),
             onSecondary: const Color.fromARGB(255, 217, 222, 225),

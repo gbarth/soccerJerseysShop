@@ -43,10 +43,10 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'FutStore',
+          'SJ Store',
           style: TextStyle(
-            fontFamily: 'Lateef',
-            fontSize: 32,
+            fontFamily: 'Goldman',
+            fontSize: 20,
           ),
         ),
         actions: [
