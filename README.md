@@ -1,4 +1,4 @@
-# FutStore
+# SJ Store
 
 A flutter e-commerce app.
 
