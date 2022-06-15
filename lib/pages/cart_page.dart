@@ -93,7 +93,7 @@ class _FinishButtonState extends State<FinishButton> {
           )
         : TextButton(
             child: Text(
-              'FINISH',
+              'CHECKOUT',
               style: TextStyle(
                 color: widget.cart.itemsCount == 0
                     ? const Color.fromARGB(171, 139, 139, 139)
