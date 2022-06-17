@@ -45,21 +45,7 @@ class AuthPage extends StatelessWidget {
                     padding: EdgeInsets.only(
                       top: size.height * 0.07,
                     ),
-                    child: const AuthForm(
-                      hintText: ' Your Email',
-                      icon: Icons.person,
-                      obscureText: false,
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(
-                      top: 14,
-                    ),
-                    child: AuthForm(
-                      hintText: ' Password',
-                      icon: Icons.lock,
-                      obscureText: true,
-                    ),
+                    child: const AuthForm(),
                   )
                 ],
               ),
