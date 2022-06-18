@@ -34,7 +34,7 @@ class AuthPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                      top: size.height * 0.15,
+                      top: size.height * 0.1,
                     ),
                     child: Image.asset(
                       'assets/images/Ecommerce-checkout.png',
@@ -43,7 +43,7 @@ class AuthPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                      top: size.height * 0.07,
+                      top: size.height * 0.05,
                     ),
                     child: const AuthForm(),
                   )

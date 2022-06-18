@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
             primary: const Color.fromARGB(255, 0, 113, 242),
             onPrimary: const Color.fromARGB(255, 217, 222, 225),
             secondary: const Color.fromARGB(255, 8, 6, 7),
-            onSecondary: const Color.fromARGB(255, 217, 222, 225),
+            onSecondary: const Color.fromARGB(255, 218, 218, 218),
             error: Colors.redAccent,
             onError: const Color.fromARGB(255, 8, 6, 7),
             background: const Color.fromARGB(255, 144, 110, 65),
