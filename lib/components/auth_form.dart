@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/models/auth.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -34,7 +36,7 @@ class _AuthFormState extends State<AuthForm> {
     });
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
 
     if (!isValid) {
@@ -45,10 +47,20 @@ class _AuthFormState extends State<AuthForm> {
 
     _formKey.currentState?.save();
 
+    Auth auth = Provider.of(context, listen: false);
+
     if (_isLogin()) {
       //Login
+      await auth.login(
+        _authData['email']!,
+        _authData['password']!,
+      );
     } else {
       // Registrar
+      await auth.signup(
+        _authData['email']!,
+        _authData['password']!,
+      );
     }
 
     setState(() => _isLoading = false);
@@ -91,6 +103,7 @@ class _AuthFormState extends State<AuthForm> {
                           color: Theme.of(context).colorScheme.primary),
                     ),
                     keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
                     onSaved: (email) => _authData['email'] = email ?? '',
                     validator: (_email) {
                       final email = _email ?? '';
@@ -101,8 +114,8 @@ class _AuthFormState extends State<AuthForm> {
                     },
                   ),
                 ),
-                SizedBox(height: deviceSize.height * 0.02),
                 Container(
+                  margin: EdgeInsets.only(top: deviceSize.height * 0.02),
                   width: deviceSize.width * 0.74,
                   padding: const EdgeInsets.symmetric(
                     vertical: 2,
@@ -133,37 +146,35 @@ class _AuthFormState extends State<AuthForm> {
                   ),
                 ),
                 if (_isSignup())
-                  Padding(
-                    padding: EdgeInsets.only(top: deviceSize.height * 0.02),
-                    child: Container(
-                      width: deviceSize.width * 0.74,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 2,
-                        horizontal: 10,
+                  Container(
+                    margin: EdgeInsets.only(top: deviceSize.height * 0.02),
+                    width: deviceSize.width * 0.74,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 2,
+                      horizontal: 10,
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: Theme.of(context).colorScheme.onSecondary),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Confirm Password',
+                        border: InputBorder.none,
+                        icon: Icon(Icons.lock,
+                            color: Theme.of(context).colorScheme.primary),
                       ),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: Theme.of(context).colorScheme.onSecondary),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText: 'Confirm Password',
-                          border: InputBorder.none,
-                          icon: Icon(Icons.lock,
-                              color: Theme.of(context).colorScheme.primary),
-                        ),
-                        keyboardType: TextInputType.emailAddress,
-                        obscureText: true,
-                        controller: _passwordController,
-                        validator: _isLogin()
-                            ? null
-                            : (_password1) {
-                                final password = _password1 ?? '';
-                                if (password != _passwordController.text) {
-                                  return 'Passwords must be same';
-                                }
-                                return null;
-                              },
-                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      obscureText: true,
+                      controller: _passwordController,
+                      validator: _isLogin()
+                          ? null
+                          : (_password) {
+                              final password = _password ?? '';
+                              if (password != _passwordController.text) {
+                                return 'Passwords must be same';
+                              }
+                              return null;
+                            },
                     ),
                   ),
                 SizedBox(height: deviceSize.height * 0.02),
