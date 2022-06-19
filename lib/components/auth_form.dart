@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/exceptions/auth_exception.dart';
 import 'package:shop/models/auth.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -36,6 +38,22 @@ class _AuthFormState extends State<AuthForm> {
     });
   }
 
+  void _showErrorDialog(String msg) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Error'),
+        content: Text(msg),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Ok'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
 
@@ -49,18 +67,24 @@ class _AuthFormState extends State<AuthForm> {
 
     Auth auth = Provider.of(context, listen: false);
 
-    if (_isLogin()) {
-      //Login
-      await auth.login(
-        _authData['email']!,
-        _authData['password']!,
-      );
-    } else {
-      // Registrar
-      await auth.signup(
-        _authData['email']!,
-        _authData['password']!,
-      );
+    try {
+      if (_isLogin()) {
+        //Login
+        await auth.login(
+          _authData['email']!,
+          _authData['password']!,
+        );
+      } else {
+        // Registrar
+        await auth.signup(
+          _authData['email']!,
+          _authData['password']!,
+        );
+      }
+    } on AuthException catch (e) {
+      _showErrorDialog(e.toString());
+    } catch (e) {
+      _showErrorDialog('An unexpected error occurred');
     }
 
     setState(() => _isLoading = false);
