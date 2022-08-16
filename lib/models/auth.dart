@@ -10,6 +10,7 @@ class Auth with ChangeNotifier {
   String? _uid;
   DateTime? _expiryDate;
 
+  //função para saber se o usuario está autenticado ou não
   bool get isAuth {
     final isValid = _expiryDate?.isAfter(DateTime.now()) ?? false;
     return _token != null && isValid;

@@ -71,18 +71,21 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
               });
             },
           ),
-          Consumer<Cart>(
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(AppRoutes.CART);
-              },
-              icon: const Icon(
-                Icons.shopping_cart,
+          Padding(
+            padding: const EdgeInsets.all(7.0),
+            child: Consumer<Cart>(
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRoutes.CART);
+                },
+                icon: const Icon(
+                  Icons.shopping_cart,
+                ),
               ),
-            ),
-            builder: (context, cart, child) => Badge(
-              value: cart.itemsCount.toString(),
-              child: child!,
+              builder: (context, cart, child) => Badge(
+                value: cart.itemsCount.toString(),
+                child: child!,
+              ),
             ),
           )
         ],
