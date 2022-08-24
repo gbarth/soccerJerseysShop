@@ -41,12 +41,7 @@ class AuthPage extends StatelessWidget {
                       width: size.width * 0.82,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: size.height * 0.05,
-                    ),
-                    child: const AuthForm(),
-                  )
+                  const AuthForm(),
                 ],
               ),
             )

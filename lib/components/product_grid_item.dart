@@ -7,6 +7,8 @@ import '../models/auth.dart';
 import '../models/product.dart';
 
 class ProductGridItem extends StatelessWidget {
+  const ProductGridItem({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
@@ -20,8 +22,10 @@ class ProductGridItem extends StatelessWidget {
         children: [
           GridTile(
             child: GestureDetector(
-              child: Image.network(
-                product.imageUrl,
+              child: FadeInImage(
+                placeholder:
+                    const AssetImage('assets/images/product-placeholder.png'),
+                image: NetworkImage(product.imageUrl),
                 fit: BoxFit.cover,
                 alignment: Alignment.topCenter,
               ),

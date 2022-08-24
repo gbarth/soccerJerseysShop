@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/exceptions/auth_exception.dart';
 import 'package:shop/models/auth.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -15,25 +12,59 @@ class AuthForm extends StatefulWidget {
   _AuthFormState createState() => _AuthFormState();
 }
 
-class _AuthFormState extends State<AuthForm> {
+class _AuthFormState extends State<AuthForm>
+    with SingleTickerProviderStateMixin {
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   AuthMode _authMode = AuthMode.Login;
-  Map<String, String> _authData = {
+  final Map<String, String> _authData = {
     'email': '',
     'password': '',
   };
 
-  bool _isLogin() => _authMode == AuthMode.Login;
-  bool _isSignup() => _authMode == AuthMode.Signup;
+  AnimationController? _controller;
+  Animation<double>? _opacityAnimation;
+
+  bool isLogin() => _authMode == AuthMode.Login;
+  bool isSignup() => _authMode == AuthMode.Signup;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 300,
+      ),
+    );
+
+    _opacityAnimation = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(
+      CurvedAnimation(
+        parent: _controller!,
+        curve: Curves.linear,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller?.dispose();
+  }
 
   void _switchAuthMode() {
     setState(() {
-      if (_isLogin()) {
+      if (isLogin()) {
         _authMode = AuthMode.Signup;
+        _controller?.forward();
       } else {
         _authMode = AuthMode.Login;
+        _controller?.reverse();
       }
     });
   }
@@ -68,7 +99,7 @@ class _AuthFormState extends State<AuthForm> {
     Auth auth = Provider.of(context, listen: false);
 
     try {
-      if (_isLogin()) {
+      if (isLogin()) {
         //Login
         await auth.login(
           _authData['email']!,
@@ -102,8 +133,7 @@ class _AuthFormState extends State<AuthForm> {
       child: Container(
         //color: Colors.black,
         padding: const EdgeInsets.all(10),
-        height:
-            _isLogin() ? deviceSize.height * 0.30 : deviceSize.height * 0.40,
+        height: isLogin() ? deviceSize.height * 0.30 : deviceSize.height * 0.40,
         width: deviceSize.width * 0.75,
         child: FittedBox(
           child: Form(
@@ -169,38 +199,48 @@ class _AuthFormState extends State<AuthForm> {
                     },
                   ),
                 ),
-                if (_isSignup())
-                  Container(
-                    margin: EdgeInsets.only(top: deviceSize.height * 0.02),
-                    width: deviceSize.width * 0.74,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 2,
-                      horizontal: 10,
-                    ),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Theme.of(context).colorScheme.onSecondary),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Confirm Password',
-                        border: InputBorder.none,
-                        icon: Icon(Icons.lock,
-                            color: Theme.of(context).colorScheme.primary),
+                AnimatedContainer(
+                  constraints: BoxConstraints(
+                    minHeight: isLogin() ? 0 : 60,
+                    maxHeight: isLogin() ? 0 : 120,
+                  ),
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.linear,
+                  child: FadeTransition(
+                    opacity: _opacityAnimation!,
+                    child: Container(
+                      margin: EdgeInsets.only(top: deviceSize.height * 0.02),
+                      width: deviceSize.width * 0.74,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 10,
                       ),
-                      keyboardType: TextInputType.emailAddress,
-                      obscureText: true,
-                      controller: _passwordController,
-                      validator: _isLogin()
-                          ? null
-                          : (_password) {
-                              final password = _password ?? '';
-                              if (password != _passwordController.text) {
-                                return 'Passwords must be same';
-                              }
-                              return null;
-                            },
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Theme.of(context).colorScheme.onSecondary),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Confirm Password',
+                          border: InputBorder.none,
+                          icon: Icon(Icons.lock,
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        obscureText: true,
+                        controller: _passwordController,
+                        validator: isLogin()
+                            ? null
+                            : (_password) {
+                                final password = _password ?? '';
+                                if (password != _passwordController.text) {
+                                  return 'Passwords must be same';
+                                }
+                                return null;
+                              },
+                      ),
                     ),
                   ),
+                ),
                 SizedBox(height: deviceSize.height * 0.02),
                 if (_isLoading)
                   const CircularProgressIndicator()
@@ -229,7 +269,7 @@ class _AuthFormState extends State<AuthForm> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      _isLogin()
+                      isLogin()
                           ? 'Don\'t have an Account ? '
                           : 'Already have an Account ? ',
                       style: TextStyle(
@@ -240,7 +280,7 @@ class _AuthFormState extends State<AuthForm> {
                     GestureDetector(
                       onTap: _switchAuthMode,
                       child: Text(
-                        _isLogin() ? 'Sign Up' : 'Sign In',
+                        isLogin() ? 'Sign Up' : 'Sign In',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                           fontSize: 12,
