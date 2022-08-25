@@ -13,6 +13,7 @@ import 'package:shop/pages/product_form_page.dart';
 import 'package:shop/pages/product_page.dart';
 import 'package:shop/pages/products_overview_page.dart';
 import 'package:shop/utils/app_routes.dart';
+import 'package:shop/utils/custom_route.dart';
 
 void main() {
   runApp(const MyApp());
@@ -70,6 +71,12 @@ class MyApp extends StatelessWidget {
             onSurface: const Color.fromARGB(255, 1, 24, 73).withOpacity(0.80),
           ),
           scaffoldBackgroundColor: const Color.fromARGB(255, 8, 6, 7),
+          pageTransitionsTheme: PageTransitionsTheme(
+            builders: {
+              TargetPlatform.android: CustomPageTransitionsBuilder(),
+              TargetPlatform.iOS: CustomPageTransitionsBuilder(),
+            },
+          ),
         ),
         //home: ProductsOverviewPage(),
         routes: {

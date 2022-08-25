@@ -22,12 +22,15 @@ class ProductGridItem extends StatelessWidget {
         children: [
           GridTile(
             child: GestureDetector(
-              child: FadeInImage(
-                placeholder:
-                    const AssetImage('assets/images/product-placeholder.png'),
-                image: NetworkImage(product.imageUrl),
-                fit: BoxFit.cover,
-                alignment: Alignment.topCenter,
+              child: Hero(
+                tag: product.id,
+                child: FadeInImage(
+                  placeholder:
+                      const AssetImage('assets/images/product-placeholder.png'),
+                  image: NetworkImage(product.imageUrl),
+                  fit: BoxFit.cover,
+                  alignment: Alignment.topCenter,
+                ),
               ),
               onTap: () {
                 Navigator.of(context).pushNamed(
